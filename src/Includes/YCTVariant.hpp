@@ -9,14 +9,12 @@
  */
 #pragma once
 
-#include "YCTTypes.h"
 #include "YCTObject.hpp"
 #include "YCTCollection.hpp"
 
 #include <string>
 #include <string.h>
 #include <vector>
-#include <map>
 
 #ifdef _MSC_VER
 #define INT64_FMT	"%I64d"
