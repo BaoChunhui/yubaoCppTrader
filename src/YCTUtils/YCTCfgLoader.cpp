@@ -16,7 +16,9 @@
 #include "../Includes/YCTVariant.hpp"
 #include <rapidjson/document.h>
 
-#include "../YCTUtils/yamlcpp/yaml.h"
+#include "../YCTUtils/yamlcpp/yaml-cpp/node/node.h"
+#include "../YCTUtils/yamlcpp/yaml-cpp/node/iterator.h"
+#include "../YCTUtils/yamlcpp/yaml-cpp/node/parse.h"
 namespace rj = rapidjson;
 
 
