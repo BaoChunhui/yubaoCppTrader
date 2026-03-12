@@ -1,6 +1,5 @@
 # 最小闭环示例：读配置 → 初始化 Logger → 打日志
 
-本示例对应 [BUILD_ROADMAP.md](../../docs/BUILD_ROADMAP.md) 中的「最小可运行闭环」。
 
 ## 流程
 
