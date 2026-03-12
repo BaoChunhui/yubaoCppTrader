@@ -27,4 +27,4 @@ cd .. && ./build/logcfg_demo
 或指定配置文件路径：`./build/logcfg_demo /path/to/logcfg.yaml`。  
 日志会按配置写入 `Logs/logcfg_demo.log` 并同时输出到控制台。
 
-**依赖**：CMake 3.14+、C++17、Boost（filesystem）、spdlog。rapidjson 由 CMake 自动 FetchContent 下载；yaml-cpp 使用仓库内 `src/YCTUtils/yamlcpp`。
+**依赖**：CMake 3.14+、C++17、Boost（filesystem）、spdlog、rapidjson；yaml-cpp 使用仓库内 `src/YCTUtils/yamlcpp`。
