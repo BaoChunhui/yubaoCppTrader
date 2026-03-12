@@ -16,8 +16,7 @@
 #include "../Includes/YCTVariant.hpp"
 #include <rapidjson/document.h>
 
-#include "../YCTUtils/yamlcpp/yaml-cpp/node/node.h"
-#include "../YCTUtils/yamlcpp/yaml-cpp/node/iterator.h"
+#include "../YCTUtils/yamlcpp/yaml-cpp/node/impl.h"  // IWYU pragma: keep (complete type + Node inlines for iterator/parse)
 #include "../YCTUtils/yamlcpp/yaml-cpp/node/parse.h"
 namespace rj = rapidjson;
 
