@@ -1,0 +1,12 @@
+# 最小日志配置：仅 root logger，控制台 + 文件
+# 与 WonderTrader logcfg 格式兼容，供 YCTLogger::init() 使用
+root:
+  async: false
+  level: debug
+  sinks:
+    - filename: Logs/logcfg_demo.log
+      pattern: '[%Y.%m.%d %H:%M:%S - %-5l] %v'
+      truncate: true
+      type: basic_file_sink
+    - pattern: '[%m.%d %H:%M:%S - %-5l] %v'
+      type: ostream_sink
