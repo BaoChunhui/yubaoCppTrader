@@ -16,7 +16,7 @@ NS_YCT_BEGIN
 /*
  *	合约分类
  */
-typedef enum tagContractCategory
+enum class ContractCategory
 {
 	CC_Stock,			//股票
 	CC_Future,			//期货
@@ -27,88 +27,87 @@ typedef enum tagContractCategory
 	CC_SpotOption,		//现货期权，股指期权是这个分类
 	CC_ETFOption,		//个股期权，ETF期权是这个分类
 
-	CC_DC_Spot	= 20,	//数币现货
+	CC_DC_Spot   = 20,	//数币现货
 	CC_DC_Swap,			//数币永续
 	CC_DC_Future,		//数币期货
 	CC_DC_Margin,		//数币杠杆
 	CC_DC_Option,		//数币期权
 
 	CC_UserIndex = 90	//自定义指数
-} ContractCategory;
+};
 
 /*
  *	期权类型
  */
-typedef enum tagOptionType
+enum class OptionType
 {
-    OT_None = 0,
-    OT_Call = '1',		//看涨期权
-    OT_Put	= '2'		//看跌期权
-} OptionType;
+	OT_None = 0,
+	OT_Call = '1',		//看涨期权
+	OT_Put  = '2'		//看跌期权
+};
 
 /*
  *	平仓类型
  */
-typedef enum tagCoverMode
+enum class CoverMode
 {
-    CM_OpenCover,		//开平
-    CM_CoverToday,		//开平昨平今
-    CM_UNFINISHED,		//平未了结的
-    CM_None			//不区分开平
-} CoverMode;
+	CM_OpenCover,		//开平
+	CM_CoverToday,		//开平昨平今
+	CM_UNFINISHED,		//平未了结的
+	CM_None				//不区分开平
+};
 
 /*
  *	交易模式
  */
-typedef enum tagTradingMode
+enum class TradingMode
 {
-    TM_Both,	//多空都支持
-    TM_Long,	//只能做多
-    TM_LongT1,	//做多T+1
-    TM_None = 9	//不能交易
-} TradingMode;
+	TM_Both,	//多空都支持
+	TM_Long,	//只能做多
+	TM_LongT1,	//做多T+1
+	TM_None = 9	//不能交易
+};
 
 /*
  *	价格模式
  */
-typedef enum tagPriceMode
+enum class PriceMode
 {
 	PM_Both,		//市价限价都支持
 	PM_Limit,		//只支持限价
 	PM_Market,		//只支持市价
-	PM_None	= 9		//不支持交易
-} PriceMode;
+	PM_None = 9		//不支持交易
+};
 
 /*
- *	K线数据类型
- *	开、高、低、收、量、额、日期、时间
+ *	K线数据类型（开、高、低、收、量、额、日期、时间）
  */
-typedef enum tagKlineFieldType
+enum class YCTKlineFieldType
 {
-    KFT_OPEN,
-    KFT_HIGH,
-    KFT_LOW,
-    KFT_CLOSE,
-    KFT_DATE,
-    KFT_TIME,
-    KFT_VOLUME,
-    KFT_SVOLUME
-} YCTKlineFieldType;
+	KFT_OPEN,
+	KFT_HIGH,
+	KFT_LOW,
+	KFT_CLOSE,
+	KFT_DATE,
+	KFT_TIME,
+	KFT_VOLUME,
+	KFT_SVOLUME
+};
 
 /*
- *	K线周期
+ *	K线周期（PERIOD_NAME 下标需用 static_cast<int>(YCTKlinePeriod::xxx)）
  */
-typedef enum tagKlinePeriod
+enum class YCTKlinePeriod
 {
-    KP_Tick,
-    KP_Minute1,
-    KP_Minute5,
-    KP_DAY,
-    KP_Week,
-    KP_Month
-} YCTKlinePeriod;
+	KP_Tick,
+	KP_Minute1,
+	KP_Minute5,
+	KP_DAY,
+	KP_Week,
+	KP_Month
+};
 
-static const char* PERIOD_NAME[] = 
+static const char* PERIOD_NAME[] =
 {
 	"tick",
 	"min1",
@@ -121,227 +120,223 @@ static const char* PERIOD_NAME[] =
 /*
  *	日志级别
  */
-typedef enum tagLogLevel
+enum class YCTLogLevel
 {
-    LL_ALL	= 100,
-    LL_DEBUG,
-    LL_INFO,
-    LL_WARN,
-    LL_ERROR,
-    LL_FATAL,
-    LL_NONE
-} YCTLogLevel;
+	LL_ALL    = 100,
+	LL_DEBUG,
+	LL_INFO,
+	LL_WARN,
+	LL_ERROR,
+	LL_FATAL,
+	LL_NONE
+};
 
 /*
  *	价格类型
  */
-typedef enum tagPriceType
+enum class YCTPriceType
 {
-    PT_ANYPRICE	= 0,			//市价单
-    PT_LIMITPRICE,					//限价单
-    PT_BESTPRICE,					//最优价
-    PT_LASTPRICE,					//最新价
+	PT_ANYPRICE = 0,			//市价单
+	PT_LIMITPRICE,				//限价单
+	PT_BESTPRICE,				//最优价
+	PT_LASTPRICE,				//最新价
 
-    //////////////////////////////////////////////////////////////////////////
-    //以下对标CTP的价格类型
-    PT_CTP_LASTPLUSONETICKS = 20,	//最新价+1ticks
-    PT_CTP_LASTPLUSTWOTICKS,		//最新价+2ticks
-    PT_CTP_LASTPLUSTHREETICKS,		//最新价+3ticks
-    PT_CTP_ASK1,					//卖一价
-    PT_CTP_ASK1PLUSONETICKS,		//卖一价+1ticks
-    PT_CTP_ASK1PLUSTWOTICKS,		//卖一价+2ticks
-    PT_CTP_ASK1PLUSTHREETICKS,		//卖一价+3ticks
-    PT_CTP_BID1,					//买一价
-    PT_CTP_BID1PLUSONETICKS,		//卖一价+1ticks
-    PT_CTP_BID1PLUSTWOTICKS,		//卖一价+2ticks
-    PT_CTP_BID1PLUSTHREETICKS,		//卖一价+3ticks
-    PT_CTP_FIVELEVELPRICE,			//五档价，中金所市价
+	PT_CTP_LASTPLUSONETICKS = 20,	//最新价+1ticks
+	PT_CTP_LASTPLUSTWOTICKS,
+	PT_CTP_LASTPLUSTHREETICKS,
+	PT_CTP_ASK1,
+	PT_CTP_ASK1PLUSONETICKS,
+	PT_CTP_ASK1PLUSTWOTICKS,
+	PT_CTP_ASK1PLUSTHREETICKS,
+	PT_CTP_BID1,
+	PT_CTP_BID1PLUSONETICKS,
+	PT_CTP_BID1PLUSTWOTICKS,
+	PT_CTP_BID1PLUSTHREETICKS,
+	PT_CTP_FIVELEVELPRICE,		//五档价，中金所市价
 
-    //////////////////////////////////////////////////////////////////////////
-    //以下对标DC的价格类型
-    PT_DC_POSTONLY	= 100,			//只做maker单
-    PT_DC_FOK,						//全部成交或立即取消
-    PT_DC_IOC,						//立即成交并取消剩余
-    PT_DC_OPTLIMITIOC				//市价委托立即成交并取消剩余
-} YCTPriceType;
+	PT_DC_POSTONLY = 100,		//只做maker单
+	PT_DC_FOK,
+	PT_DC_IOC,
+	PT_DC_OPTLIMITIOC
+};
 
 /*
  *	时间条件
  */
-typedef enum tagTimeCondition
+enum class YCTTimeCondition
 {
-    TC_IOC		= '1',	//立即完成,否则撤销
-    TC_GFS,			//本节有效
-    TC_GFD,			//当日有效
-} YCTTimeCondition;
+	TC_IOC  = '1',	//立即完成,否则撤销
+	TC_GFS,			//本节有效
+	TC_GFD			//当日有效
+};
 
 /*
  *	订单标志
  */
-typedef enum tagOrderFlag
+enum class YCTOrderFlag
 {
-    OF_NOR = '0',		//普通订单
-    OF_FAK,			//fak
-    OF_FOK,			//fok
-} YCTOrderFlag;
+	OF_NOR = '0',	//普通订单
+	OF_FAK,			//fak
+	OF_FOK			//fok
+};
 
 /*
  *	开平方向
  */
-typedef enum tagOffsetType
+enum class YCTOffsetType
 {
-    OT_OPEN			= '0',	//开仓
-    OT_CLOSE,					//平仓,上期为平昨
-    OT_FORCECLOSE,				//强平
-    OT_CLOSETODAY,				//平今
-    OT_CLOSEYESTERDAY,			//平昨
-} YCTOffsetType;
+	OT_OPEN          = '0',	//开仓
+	OT_CLOSE,					//平仓,上期为平昨
+	OT_FORCECLOSE,				//强平
+	OT_CLOSETODAY,				//平今
+	OT_CLOSEYESTERDAY			//平昨
+};
 
 /*
  *	多空方向
  */
-typedef enum tagDirectionType
+enum class YCTDirectionType
 {
-    DT_LONG,					//做多
-    DT_SHORT,					//做空
-	DT_NET						//净
-} YCTDirectionType;
+	DT_LONG,	//做多
+	DT_SHORT,	//做空
+	DT_NET		//净
+};
 
 /*
  *	业务类型
  */
-typedef enum tagBusinessType
+enum class YCTBusinessType
 {
-    BT_CASH		= '0',	//普通买卖,
-    BT_ETF		= '1',	//ETF申赎
-    BT_EXECUTE	= '2',	//期权行权
-    BT_QUOTE	= '3',	//期权报价
-    BT_FORQUOTE = '4',	//期权询价
-    BT_FREEZE	= '5',	//期权对锁
-    BT_CREDIT	= '6',	//融资融券
-    BT_UNKNOWN			//未知业务类型
-} YCTBusinessType;
+	BT_CASH    = '0',
+	BT_ETF     = '1',
+	BT_EXECUTE = '2',
+	BT_QUOTE   = '3',
+	BT_FORQUOTE = '4',
+	BT_FREEZE  = '5',
+	BT_CREDIT  = '6',
+	BT_UNKNOWN	//未知业务类型
+};
 
 /*
  *	订单操作类型
  */
-typedef enum tagActionFlag
+enum class YCTActionFlag
 {
-    AF_CANCEL			= '0',	//撤销
-    AF_MODIFY			= '3',	//修改
-} YCTActionFlag;
+	AF_CANCEL = '0',	//撤销
+	AF_MODIFY = '3'		//修改
+};
 
 /*
  *	订单状态
  */
-typedef enum tagOrderState
+enum class YCTOrderState
 {
-    OS_AllTraded				= '0',	//全部成交
-    OS_PartTraded_Queuing,				//部分成交,仍在队列中
-    OS_PartTraded_NotQueuing,			//部分成交,未在队列
-    OS_NotTraded_Queuing,				//未成交
-    OS_NotTraded_NotQueuing,			//未成交,未在队列
-    OS_Canceled,						//已撤销
-    OS_Submitting				= 'a',	//正在提交
-    OS_Cancelling,						//在撤
-    OS_Nottouched,						//未触发
-} YCTOrderState;
+	OS_AllTraded            = '0',	//全部成交
+	OS_PartTraded_Queuing,
+	OS_PartTraded_NotQueuing,
+	OS_NotTraded_Queuing,
+	OS_NotTraded_NotQueuing,
+	OS_Canceled,
+	OS_Submitting  = 'a',
+	OS_Cancelling,
+	OS_Nottouched
+};
 
 /*
  *	订单类型
  */
-typedef enum tagOrderType
+enum class YCTOrderType
 {
-    OT_Normal			= 0,		//正常订单
-    OT_Exception,					//异常订单
-    OT_System,					    //系统订单
-    OT_Hedge						//对冲订单
-} YCTOrderType;
+	OT_Normal   = 0,
+	OT_Exception,
+	OT_System,
+	OT_Hedge
+};
 
 /*
  *	成交类型
  */
-typedef enum tagTradeType
+enum class YCTTradeType
 {
-    TT_Common				= '0',	//普通
-    TT_OptionExecution		= '1',	//期权执行
-    TT_OTC					= '2',	//OTC成交
-    TT_EFPDerived			= '3',	//期转现衍生成交
-    TT_CombinationDerived	= '4'	//组合衍生成交
-} YCTTradeType;
+	TT_Common              = '0',
+	TT_OptionExecution     = '1',
+	TT_OTC                 = '2',
+	TT_EFPDerived          = '3',
+	TT_CombinationDerived  = '4'
+};
 
 /*
  *	错误代码
  */
-typedef enum tagErrorCode
+enum class YCTErroCode
 {
-    EC_NONE			=	0,		    //没有错误
-    EC_ORDERINSERT,				    //下单错误
-    EC_ORDERCANCEL,				    //撤单错误
-    EC_EXECINSERT,					//行权指令错误
-    EC_EXECCANCEL,					//行权撤销错误
-    EC_UNKNOWN			=	9999	//未知错误
-} YCTErroCode;
+	EC_NONE        = 0,
+	EC_ORDERINSERT,
+	EC_ORDERCANCEL,
+	EC_EXECINSERT,
+	EC_EXECCANCEL,
+	EC_UNKNOWN = 9999
+};
 
 /*
  *	比较字段
  */
-typedef enum tagCompareField
+enum class YCTCompareField
 {
-    CF_NEWPRICE			=	0,	    //最新价
-    CF_BIDPRICE,					//买一价
-    CF_ASKPRICE,					//卖一价
-    CF_PRICEDIFF,					//价差,止盈止损专用
-    CF_NONE				=	9	    //不比较
-} YCTCompareField;
+	CF_NEWPRICE  = 0,
+	CF_BIDPRICE,
+	CF_ASKPRICE,
+	CF_PRICEDIFF,
+	CF_NONE = 9
+};
 
 /*
- *	比较类型
+ *	比较类型（C++ enum class，使用方式：YCTCompareType::CT_Equal）
  */
-typedef enum tagCompareType
+enum class YCTCompareType
 {
-    CT_Equal			= 0,		//等于
-    CT_Larger,						//大于
-    CT_Smaller,					    //小于
-    CT_LargerOrEqual,				//大于等于
-    CT_SmallerOrEqual				//小于等于
-} YCTCompareType;
+	CT_Equal         = 0,	//等于
+	CT_Larger,				//大于
+	CT_Smaller,				//小于
+	CT_LargerOrEqual,		//大于等于
+	CT_SmallerOrEqual		//小于等于
+};
 
 /*
  *	行情解析器事件
  */
-typedef enum tagParserEvent
+enum class YCTParserEvent
 {
-    PE_Connect			= 0,		//连接事件
-    PE_Close,						//关闭事件
-    PE_Login,						//登录
-    PE_Logout						//注销
-} YCTParserEvent;
+	PE_Connect = 0,
+	PE_Close,
+	PE_Login,
+	PE_Logout
+};
 
 /*
  *	交易模块事件
  */
-typedef enum tagTraderEvent
+enum class YCTTraderEvent
 {
-    TE_Connect			= 0,		//连接事件
-    TE_Close,						//关闭事件
-    TE_Login,						//登录
-    TE_Logout						//注销
-} YCTTraderEvent;
+	TE_Connect = 0,
+	TE_Close,
+	TE_Login,
+	TE_Logout
+};
 
 /*
  *	交易状态
  */
-typedef enum tagTradeStatus
+enum class YCTTradeStatus
 {
-    TS_BeforeTrading	= '0',	//开盘前
-    TS_NotTrading		= '1',	//非交易
-    TS_Continous		= '2',	//连续竞价
-    TS_AuctionOrdering	= '3',	//集合竞价下单
-    TS_AuctionBalance	= '4',	//集合竞价平衡
-    TS_AuctionMatch		= '5',	//集合竞价撮合
-    TS_Closed			= '6'	//收盘
-} YCTTradeStatus;
+	TS_BeforeTrading   = '0',
+	TS_NotTrading      = '1',
+	TS_Continous      = '2',
+	TS_AuctionOrdering = '3',
+	TS_AuctionBalance  = '4',
+	TS_AuctionMatch    = '5',
+	TS_Closed          = '6'
+};
 
 /*
  *	买卖方向类型
