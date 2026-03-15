@@ -35,7 +35,7 @@
 const char* DYN_PATTERN = "dyn_pattern";
 
 ILogHandler* YCTLogger::m_logHandler = NULL;
-YCTLogLevel YCTLogger::m_logLevel = LL_NONE;
+YCTLogLevel YCTLogger::m_logLevel = YCTLogLevel::LL_NONE;
 bool YCTLogger::m_bStopped = false;
 bool YCTLogger::m_bInited = false;
 bool YCTLogger::m_bTpInited = false;
@@ -77,30 +77,30 @@ inline spdlog::level::level_enum str_to_level(const char* slvl)
 inline YCTLogLevel str_to_ll(const char* slvl)
 {
 	if (slvl == NULL)
-		return LL_NONE;
+		return YCTLogLevel::LL_NONE;
 	if (yubao_stricmp(slvl, "debug") == 0)
 	{
-		return LL_DEBUG;
+		return YCTLogLevel::LL_DEBUG;
 	}
 	else if (yubao_stricmp(slvl, "info") == 0)
 	{
-		return LL_INFO;
+		return YCTLogLevel::LL_INFO;
 	}
 	else if (yubao_stricmp(slvl, "warn") == 0)
 	{
-		return LL_WARN;
+		return YCTLogLevel::LL_WARN;
 	}
 	else if (yubao_stricmp(slvl, "error") == 0)
 	{
-		return LL_ERROR;
+		return YCTLogLevel::LL_ERROR;
 	}
 	else if (yubao_stricmp(slvl, "fatal") == 0)
 	{
-		return LL_FATAL;
+		return YCTLogLevel::LL_FATAL;
 	}
 	else
 	{
-		return LL_NONE;
+		return YCTLogLevel::LL_NONE;
 	}
 }
 
@@ -305,7 +305,7 @@ void YCTLogger::debug_imp(SpdLoggerPtr logger, const char* message)
 		m_rootLogger->debug(msg);
 
 	if (m_logHandler)
-		m_logHandler->handleLogAppend(LL_DEBUG, msg);
+		m_logHandler->handleLogAppend(YCTLogLevel::LL_DEBUG, msg);
 }
 
 void YCTLogger::info_imp(SpdLoggerPtr logger, const char* message)
@@ -318,7 +318,7 @@ void YCTLogger::info_imp(SpdLoggerPtr logger, const char* message)
 		m_rootLogger->info(msg);
 
 	if (m_logHandler)
-		m_logHandler->handleLogAppend(LL_INFO, msg);
+		m_logHandler->handleLogAppend(YCTLogLevel::LL_INFO, msg);
 }
 
 void YCTLogger::warn_imp(SpdLoggerPtr logger, const char* message)
@@ -331,7 +331,7 @@ void YCTLogger::warn_imp(SpdLoggerPtr logger, const char* message)
 		m_rootLogger->warn(msg);
 
 	if (m_logHandler)
-		m_logHandler->handleLogAppend(LL_WARN, msg);
+		m_logHandler->handleLogAppend(YCTLogLevel::LL_WARN, msg);
 }
 
 void YCTLogger::error_imp(SpdLoggerPtr logger, const char* message)
@@ -344,7 +344,7 @@ void YCTLogger::error_imp(SpdLoggerPtr logger, const char* message)
 		m_rootLogger->error(msg);
 
 	if (m_logHandler)
-		m_logHandler->handleLogAppend(LL_ERROR, msg);
+		m_logHandler->handleLogAppend(YCTLogLevel::LL_ERROR, msg);
 }
 
 void YCTLogger::fatal_imp(SpdLoggerPtr logger, const char* message)
@@ -357,7 +357,7 @@ void YCTLogger::fatal_imp(SpdLoggerPtr logger, const char* message)
 		m_rootLogger->critical(msg);
 
 	if (m_logHandler)
-		m_logHandler->handleLogAppend(LL_FATAL, msg);
+		m_logHandler->handleLogAppend(YCTLogLevel::LL_FATAL, msg);
 }
 
 void YCTLogger::log_raw(YCTLogLevel ll, const char* message)
@@ -377,15 +377,15 @@ void YCTLogger::log_raw(YCTLogLevel ll, const char* message)
 	{
 		switch (ll)
 		{
-		case LL_DEBUG:
+		case YCTLogLevel::LL_DEBUG:
 			debug_imp(logger, message); break;
-		case LL_INFO:
+		case YCTLogLevel::LL_INFO:
 			info_imp(logger, message); break;
-		case LL_WARN:
+		case YCTLogLevel::LL_WARN:
 			warn_imp(logger, message); break;
-		case LL_ERROR:
+		case YCTLogLevel::LL_ERROR:
 			error_imp(logger, message); break;
-		case LL_FATAL:
+		case YCTLogLevel::LL_FATAL:
 			fatal_imp(logger, message); break;
 		default:
 			break;
@@ -414,25 +414,25 @@ void YCTLogger::log_raw_by_cat(const char* catName, YCTLogLevel ll, const char* 
 	{
 		switch (ll)
 		{
-		case LL_DEBUG:
+		case YCTLogLevel::LL_DEBUG:
 			debug_imp(logger, message);
 			break;
-		case LL_INFO:
+		case YCTLogLevel::LL_INFO:
 			info_imp(logger, message);
 			break;
-		case LL_WARN:
+		case YCTLogLevel::LL_WARN:
 			warn_imp(logger, message);
 			break;
-		case LL_ERROR:
+		case YCTLogLevel::LL_ERROR:
 			error_imp(logger, message);
 			break;
-		case LL_FATAL:
+		case YCTLogLevel::LL_FATAL:
 			fatal_imp(logger, message);
 			break;
 		default:
 			break;
 		}
-	}	
+	}
 }
 
 void YCTLogger::log_dyn_raw(const char* patttern, const char* catName, YCTLogLevel ll, const char* message)
@@ -456,19 +456,19 @@ void YCTLogger::log_dyn_raw(const char* patttern, const char* catName, YCTLogLev
 		return;
 	switch (ll)
 	{
-	case LL_DEBUG:
+	case YCTLogLevel::LL_DEBUG:
 		debug_imp(logger, message);
 		break;
-	case LL_INFO:
+	case YCTLogLevel::LL_INFO:
 		info_imp(logger, message);
 		break;
-	case LL_WARN:
+	case YCTLogLevel::LL_WARN:
 		warn_imp(logger, message);
 		break;
-	case LL_ERROR:
+	case YCTLogLevel::LL_ERROR:
 		error_imp(logger, message);
 		break;
-	case LL_FATAL:
+	case YCTLogLevel::LL_FATAL:
 		fatal_imp(logger, message);
 		break;
 	default:

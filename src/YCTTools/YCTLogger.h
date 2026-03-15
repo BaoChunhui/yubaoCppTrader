@@ -77,7 +77,7 @@ public:
 	template<typename... Args>
 	static void debug(const char* format, const Args& ...args)
 	{
-		if (m_logLevel > LL_DEBUG || m_bStopped)
+		if (m_logLevel > YCTLogLevel::LL_DEBUG || m_bStopped)
 			return;
 
 		fmtutil::format_to(m_buffer, MAX_LOG_BUF_SIZE, format, args...);
@@ -94,7 +94,7 @@ public:
 	template<typename... Args>
 	static void info(const char* format, const Args& ...args)
 	{
-		if (m_logLevel > LL_INFO || m_bStopped)
+		if (m_logLevel > YCTLogLevel::LL_INFO || m_bStopped)
 			return;
 
 		fmtutil::format_to(m_buffer, MAX_LOG_BUF_SIZE, format, args...);
@@ -111,7 +111,7 @@ public:
 	template<typename... Args>
 	static void warn(const char* format, const Args& ...args)
 	{
-		if (m_logLevel > LL_WARN || m_bStopped)
+		if (m_logLevel > YCTLogLevel::LL_WARN || m_bStopped)
 			return;
 
 		fmtutil::format_to(m_buffer, MAX_LOG_BUF_SIZE, format, args...);
@@ -128,7 +128,7 @@ public:
 	template<typename... Args>
 	static void error(const char* format, const Args& ...args)
 	{
-		if (m_logLevel > LL_ERROR || m_bStopped)
+		if (m_logLevel > YCTLogLevel::LL_ERROR || m_bStopped)
 			return;
 
 		fmtutil::format_to(m_buffer, MAX_LOG_BUF_SIZE, format, args...);
@@ -145,7 +145,7 @@ public:
 	template<typename... Args>
 	static void fatal(const char* format, const Args& ...args)
 	{
-		if (m_logLevel > LL_FATAL || m_bStopped)
+		if (m_logLevel > YCTLogLevel::LL_FATAL || m_bStopped)
 			return;
 
 		fmtutil::format_to(m_buffer, MAX_LOG_BUF_SIZE, format, args...);
